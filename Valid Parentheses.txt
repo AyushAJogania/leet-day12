@@ -1,0 +1,29 @@
+#include <iostream>
+#include <stack>
+#include <unordered_map>
+
+class Solution {
+public:
+    bool isValid(std::string s) {
+        std::stack<char> st;
+        std::unordered_map<char, char> mapping = {
+            {')', '('},
+            {'}', '{'},
+            {']', '['}
+        };
+
+        for (char ch : s) {
+            if (ch == '(' || ch == '{' || ch == '[') {
+                st.push(ch);
+            } else {
+                if (st.empty() || st.top() != mapping[ch]) {
+                    return false;
+                }
+                st.pop();
+            }
+        }
+
+        return st.empty();
+    }
+};
+
